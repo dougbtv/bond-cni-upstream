@@ -374,7 +374,8 @@ func cmdAdd(args *skel.CmdArgs) error {
 		if err != nil {
 			fmt.Println(err)
 		} else {
-			file.WriteString(fmt.Sprintf("ipamResult: %+v", ipamResult))
+			file.WriteString(fmt.Sprintf("pureresult: %+v\n", r))
+			file.WriteString(fmt.Sprintf("ipamResult: %+v\n", ipamResult))
 		}
 		file.Close()
 
