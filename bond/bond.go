@@ -21,6 +21,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"os"
 	"runtime"
 
 	"strconv"
@@ -368,6 +369,15 @@ func cmdAdd(args *skel.CmdArgs) error {
 		if err != nil {
 			return err
 		}
+
+		file, err := os.Create("/tmp/bonddebug.txt")
+		if err != nil {
+			fmt.Println(err)
+		} else {
+			file.WriteString(fmt.Sprintf("ipamResult: %+v", ipamResult))
+			fmt.Println("Done")
+		}
+		file.Close()
 
 		if len(ipamResult.IPs) == 0 {
 			return errors.New("IPAM plugin returned missing IP config")
