@@ -360,21 +360,21 @@ func cmdAdd(args *skel.CmdArgs) error {
 
 	// run the IPAM plugin and get back the config to apply
 	if bondConf.IPAM.Type != "" {
-		r, err := ipam.ExecAdd(bondConf.IPAM.Type, args.StdinData)
+		ipamResult, err := ipam.ExecAdd(bondConf.IPAM.Type, args.StdinData)
 		if err != nil {
 			return err
 		}
 		// Convert whatever the IPAM result was into the current Result type
-		ipamResult, err := current.NewResultFromResult(r)
-		if err != nil {
-			return err
-		}
+		// ipamResult, err := current.NewResultFromResult(r)
+		// if err != nil {
+		// 	return err
+		// }
 
 		file, err := os.Create("/tmp/bonddebug.txt")
 		if err != nil {
 			fmt.Println(err)
 		} else {
-			file.WriteString(fmt.Sprintf("pureresult: %+v\n", r))
+			// file.WriteString(fmt.Sprintf("pureresult: %+v\n", r))
 			file.WriteString(fmt.Sprintf("ipamResult: %+v\n", ipamResult))
 		}
 		file.Close()
